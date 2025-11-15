@@ -1,0 +1,78 @@
+# ===============================
+# Global OS / Editor Ignored Files
+# ===============================
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# VSCode
+.vscode/
+.idea/
+
+# ===============================
+# Node / NPM / PNPM / Yarn
+# ===============================
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ===============================
+# Environment / Secrets
+# ===============================
+.env
+.env.local
+.env.development
+.env.production
+
+# ===============================
+# Build / Output / Cache
+# ===============================
+dist/
+build/
+.cache/
+.temp/
+out/
+coverage/
+logs/
+
+# ===============================
+# Playwright (Frontend Tests)
+# ===============================
+playwright-report/
+test-results/
+blob-report/
+*.zip
+.traces/
+
+# Snapshots (KEEP OR IGNORE)
+# If you want to store snapshot baseline in Git, remove the next line
+tests/**/*.png
+
+# ===============================
+# Vite (Frontend)
+# ===============================
+*.local
+vite.config.ts.timestamp-*
+
+# ===============================
+# Agent Output (Screenshots + CSS)
+# ===============================
+agent_output/home.png
+agent_output/css.json
+agent_output/*.png
+agent_output/*.json
+
+# ===============================
+# Misc
+# ===============================
+*.pem
+*.crt
+*.pid
+*.tar
+*.gz
+
