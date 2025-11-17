@@ -1,29 +1,31 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
 
 import {
   createBrowserRouter,
   RouterProvider,
+  Navigate,
 } from "react-router-dom";
 
-import MainLayout from './layout/MainLayout.jsx';
-import Home from './pages/Home.jsx';
-import Projects from './pages/Projects.jsx';
-import Tasks from './pages/Tasks.jsx';
+import MainLayout from "./layout/MainLayout";
+import Home from "./pages/Home";
+import Tasks from "./pages/Tasks";
+import Projects from "./pages/Projects";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
     children: [
-      { path: "/home", element: <Home /> },
-      { path: "/projects", element: <Projects /> },
-      { path: "/tasks", element: <Tasks /> },
+      { index: true, element: <Navigate to="/home" replace /> },
+      { path: "home", element: <Home /> },
+      { path: "tasks", element: <Tasks /> },
+      { path: "projects", element: <Projects /> },
     ],
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <RouterProvider router={router} />
-)
+);

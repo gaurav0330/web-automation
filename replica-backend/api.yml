@@ -1,0 +1,132 @@
+openapi: 3.0.3
+info:
+  title: AsanaReplica API (inferred)
+  version: 0.1.0
+servers:
+  - url: http://localhost:8000
+paths:
+  /projects:
+    get:
+      summary: List projects
+      parameters:
+        - in: query
+          name: include
+          schema:
+            type: string
+            enum: [members, tasks]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+    post:
+      summary: Create project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectCreate'
+      responses:
+        '201':
+          description: Created
+  /projects/{project_id}:
+    get:
+      summary: Get a project
+      parameters:
+        - in: path
+          name: project_id
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: $ref: '#/components/schemas/Project'
+  /tasks:
+    get:
+      summary: List tasks
+      parameters:
+        - in: query
+          name: project_id
+          schema: { type: integer }
+        - in: query
+          name: assignee_id
+          schema: { type: integer }
+        - in: query
+          name: completed
+          schema: { type: boolean }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+    post:
+      summary: Create task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskCreate'
+      responses:
+        '201':
+          description: Created
+  /tasks/{task_id}:
+    get:
+      summary: Get task
+      parameters:
+        - in: path
+          name: task_id
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: $ref: '#/components/schemas/Task'
+components:
+  schemas:
+    Project:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        color: { type: string }
+        owner_id: { type: integer }
+        created_at: { type: string, format: date-time }
+    ProjectCreate:
+      type: object
+      required: [name]
+      properties:
+        name: { type: string }
+        color: { type: string }
+    Task:
+      type: object
+      properties:
+        id: { type: integer }
+        project_id: { type: integer }
+        name: { type: string }
+        description: { type: string }
+        completed: { type: boolean }
+        assignee_id: { type: integer }
+        due_date: { type: string, format: date-time }
+    TaskCreate:
+      type: object
+      required: [name, project_id]
+      properties:
+        name: { type: string }
+        project_id: { type: integer }
+        description: { type: string }
+        assignee_id: { type: integer }
+        due_date: { type: string, format: date-time }

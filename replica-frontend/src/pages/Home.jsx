@@ -1,34 +1,35 @@
+import { useEffect, useState } from "react";
+import { getTasks } from "../api/tasks";
+
 export default function Home() {
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    load();
+  }, []);
+
+  async function load() {
+    const data = await getTasks();
+    setTasks(data);
+  }
+
   return (
-    <div className="space-y-8">
-      <div>
-        <h2 className="text-gray-500">Saturday, November 15</h2>
-        <h1 className="text-4xl font-bold">Good evening, Gaurav</h1>
-      </div>
+    <div>
+      <h1 className="text-3xl font-bold mb-4">Good evening, Gaurav</h1>
 
-      {/* MY TASKS BLOCK */}
       <div className="bg-white p-6 rounded-xl shadow">
-        <h2 className="text-xl font-bold mb-4">My tasks</h2>
+        <h2 className="font-bold text-xl mb-4">My tasks</h2>
 
-        {/* TABS */}
-        <div className="flex gap-6 border-b pb-2 mb-4">
-          <button className="font-bold border-b-2 border-black">Upcoming</button>
-          <button className="text-gray-500">Overdue</button>
-          <button className="text-gray-500">Completed</button>
-        </div>
+        {tasks.length === 0 && (
+          <p className="text-gray-500">You have no tasks yet.</p>
+        )}
 
-        {/* TASK LIST */}
-        <ul className="space-y-4">
-          <li className="flex justify-between py-3 border rounded px-3">
-            <span>Draft project brief</span>
-            <span className="text-sm text-gray-500">Today — Nov 18</span>
-          </li>
-
-          <li className="flex justify-between py-3 border rounded px-3">
-            <span>Schedule kickoff meeting</span>
-            <span className="text-sm text-gray-500">Nov 17 — 19</span>
-          </li>
-        </ul>
+        {tasks.map(t => (
+          <div key={t.id} className="border p-3 rounded mb-3">
+            <strong>{t.name}</strong>
+            <p className="text-gray-500">{t.description || "No description"}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

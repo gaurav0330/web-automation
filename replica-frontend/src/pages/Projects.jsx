@@ -1,9 +1,17 @@
+import { useEffect, useState } from "react";
+import { getProjects } from "../api/projects";
+
 export default function Projects() {
-  const projects = [
-    { id: 1, name: "Cross-functional Project", color: "bg-red-500" },
-    { id: 2, name: "Marketing Sprint", color: "bg-blue-500" },
-    { id: 3, name: "Engineering Tasks", color: "bg-green-500" },
-  ];
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    loadProjects();
+  }, []);
+
+  async function loadProjects() {
+    const data = await getProjects();
+    setProjects(data);
+  }
 
   return (
     <div>
@@ -11,9 +19,9 @@ export default function Projects() {
 
       <div className="grid grid-cols-2 gap-6">
         {projects.map((p) => (
-          <div key={p.id} className="bg-white p-6 rounded-xl shadow flex items-center gap-4">
-            <div className={`w-10 h-10 rounded-full ${p.color}`}></div>
+          <div key={p.id} className="bg-white p-6 rounded-xl shadow">
             <h2 className="text-xl font-semibold">{p.name}</h2>
+            <p className="text-gray-500">Owner ID: {p.owner_id}</p>
           </div>
         ))}
       </div>
