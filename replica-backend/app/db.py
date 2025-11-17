@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 import os
 
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:111111@localhost:5432/asana_replica")
+DATABASE_URL = os.getenv("DATABASE_URL", "DB_URL")
 
 # If you want sqlite test DB during CI, override via env in CI to sqlite:///./test.db
 engine = create_engine(DATABASE_URL, future=True)
