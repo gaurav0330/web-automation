@@ -19,12 +19,7 @@ This repository contains a **full submission-ready solution** for the Clooney as
 ```
 WEB-AUTOMATION/
 │
-├── agent/                     # Playwright automation agent
-│   └── clone.js
 │
-├── agent_output/              # Screenshots + CSS captured by agent
-│   ├── home.png
-│   └── css.json
 │
 ├── replica-frontend/          # High-fidelity React replica of Asana
 │   ├── src/
@@ -33,7 +28,11 @@ WEB-AUTOMATION/
 │   ├── playwright-report/
 │   ├── playwright.config.js
 │   └── package.json
-│
+│   ├── agent/
+|   ├── agent_output/              # Screenshots + CSS captured by agent
+│   ├── home.png
+│   └── css.json                  # Playwright automation agent
+│   └── clone.cjs
 └── replica-backend/           # FastAPI backend with DB + tests
     ├── app/
     ├── tests/
@@ -56,8 +55,8 @@ The **Clooney Agent** performs automated UI replication steps:
 
 ### ▶ Run Agent
 ```bash
-cd agent
-node clone.js
+cd replica-frontend/agent
+node clone.cjs
 ```
 
 Output:
@@ -103,16 +102,13 @@ Your frontend is validated using:
 
 ### ▶ Create Snapshot Baseline
 ```bash
+cd replica-frontend
 npx playwright test --update-snapshots
-```
-
-### ▶ Run Tests
-```bash
-npx playwright test
 ```
 
 ### ▶ View Test Report
 ```bash
+cd replica-frontend
 npx playwright show-report
 ```
 
@@ -172,16 +168,6 @@ FastAPI gives:
 
 ---
 
-# 🧪 Backend Testing (Pytest)
-```bash
-pytest -q
-```
-
-Expected:
-```
-7 passed
-```
-
 ---
 
 # 🗄 Database Setup
@@ -207,19 +193,14 @@ DATABASE_URL=postgresql://postgres:password@localhost:5432/asana_replica
 
 ---
 
-# 🐳 Docker (Optional)
-```bash
-docker-compose up --build
-```
-
 ---
 
 # 🟢 6. How Evaluators Can Run Your Entire Project
 
 ### A. Run agent
 ```
-cd agent
-node clone.js
+cd replica-frontend/agent
+node clone.cjs
 ```
 
 ### B. Run backend
@@ -241,15 +222,4 @@ npx playwright test
 
 ---
 
-# 🎉 Final Status
-This submission meets **ALL Clooney requirements**:
-
-✔ Pixel-perfect UI replication  
-✔ API replication  
-✔ Visual tests with masking  
-✔ CSS accuracy validation  
-✔ Snapshot-based exactness scoring  
-✔ Backend tests + schema  
-✔ Fully automated agent  
-
-You can submit with full confidence. 🚀🔥
+#THANK YOU#
